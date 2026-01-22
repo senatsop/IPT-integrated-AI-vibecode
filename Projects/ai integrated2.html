@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>AI Integrated 2 - Guessing Game</title>
+    <link rel="stylesheet" href="../VibeCode.css">
+    <style>
+        body { background: #0c1422; color: #ddd; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 28px; }
+        .container { max-width:1000px; margin:0 auto; }
+        .card { background: rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04); padding:18px; border-radius:8px; }
+        .controls { display:flex; gap:12px; margin-top:12px; align-items:center; }
+        input[type=number] { padding:8px; border-radius:6px; background:#081018; border:1px solid rgba(255,255,255,0.06); color:#fff; }
+        button.primary { background:#ffcc00;color:#111;border:0;padding:8px 12px;border-radius:6px;cursor:pointer;font-weight:700 }
+        .muted { color:#aab4c1 }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AI Guessing Trainer</h1>
+        <div class="card">
+            <p class="muted">This game demonstrates a simple adaptive AI that tries to guess the number you think of. Instead of the player guessing, the AI makes guesses and updates a belief distribution based on your feedback (higher/lower/correct). The AI uses a probability estimate over the range and chooses the most likely number, but includes exploration to avoid getting stuck.</p>
+
+            <div style="margin-top:14px">
+                <label class="muted">Choose range (1 - N): </label>
+                <input id="rangeN" type="number" value="50" min="5" max="500">
+                <button id="start" class="primary">Start Game</button>
+            </div>
+
+            <div id="game-area" style="margin-top:18px; display:none">
+                <div class="muted">AI Guess: <strong id="ai-guess">—</strong></div>
+                <div style="margin-top:10px">
+                    <button id="higher" class="primary">Higher</button>
+                    <button id="lower" class="primary">Lower</button>
+                    <button id="correct" class="primary">Correct</button>
+                </div>
+
+                <div style="margin-top:12px" class="muted">Rounds: <span id="rounds">0</span> · AI Confidence(top prob): <span id="conf">0%</span></div>
+                <div id="log" style="margin-top:12px; max-height:220px; overflow:auto; background:rgba(0,0,0,0.15); padding:8px; border-radius:6px; font-size:0.95rem"></div>
+                <div style="margin-top:12px"><button id="reset" class="primary">Reset</button></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    (function(){
+        const startBtn = document.getElementById('start');
+        const rangeInput = document.getElementById('rangeN');
+        const gameArea = document.getElementById('game-area');
+        const guessEl = document.getElementById('ai-guess');
+        const higherBtn = document.getElementById('higher');
+        const lowerBtn = document.getElementById('lower');
+        const correctBtn = document.getElementById('correct');
+        const roundsEl = document.getElementById('rounds');
+        const confEl = document.getElementById('conf');
+        const logEl = document.getElementById('log');
+        const resetBtn = document.getElementById('reset');
+
+        let N = 50;
+        let probs = [];
+        let rounds = 0;
+
+        function init(){
+            N = Math.max(5, Math.min(500, parseInt(rangeInput.value) || 50));
+            probs = new Array(N+1).fill(1/(N)); // index 1..N
+            probs[0]=0;
+            rounds = 0;
+            gameArea.style.display = 'block';
+            logEl.innerHTML = '';
+            nextGuess();
+        }
+
+        function nextGuess(){
+            // choose argmax prob with epsilon exploration
+            const eps = 0.12;
+            let choice;
+            if(Math.random()<eps){ // explore: sample by distribution
+                let r=Math.random();
+                for(let i=1;i<=N;i++){ r-=probs[i]; if(r<=0){ choice=i; break; } }
+            } else {
+                let maxp=0; let arg=1; for(let i=1;i<=N;i++){ if(probs[i]>maxp){ maxp=probs[i]; arg=i; } } choice=arg;
+            }
+            guessEl.textContent = choice;
+            roundsEl.textContent = ++rounds;
+            confEl.textContent = Math.round((Math.max(...probs))*100) + '%';
+            return choice;
+        }
+
+        function updateBelief(guess, feedback){
+            // feedback: 'higher' means secret > guess => eliminate <=guess
+            // we'll set likelihoods accordingly
+            for(let i=1;i<=N;i++){
+                if(feedback==='higher') probs[i] = (i>guess)? probs[i] : 0;
+                else if(feedback==='lower') probs[i] = (i<guess)? probs[i] : 0;
+                else if(feedback==='correct') probs[i] = (i===guess)? probs[i] : 0;
+            }
+            // renormalize
+            const s = probs.reduce((a,b)=>a+b,0) || 1;
+            for(let i=1;i<=N;i++) probs[i]=probs[i]/s;
+        }
+
+        function log(msg){ const p=document.createElement('div'); p.textContent=msg; logEl.prepend(p); }
+
+        let currentGuess;
+        startBtn.addEventListener('click', ()=>{ init(); });
+        higherBtn.addEventListener('click', ()=>{ updateBelief(currentGuess,'higher'); log('User: higher than '+currentGuess); currentGuess = nextGuess(); });
+        lowerBtn.addEventListener('click', ()=>{ updateBelief(currentGuess,'lower'); log('User: lower than '+currentGuess); currentGuess = nextGuess(); });
+        correctBtn.addEventListener('click', ()=>{ updateBelief(currentGuess,'correct'); log('User: correct -> '+currentGuess); alert('AI guessed correctly: '+currentGuess+' in '+rounds+' rounds'); });
+        resetBtn.addEventListener('click', ()=>{ gameArea.style.display='none'; rangeInput.value='50'; logEl.innerHTML=''; probs=[]; rounds=0; guessEl.textContent='—'; roundsEl.textContent='0'; confEl.textContent='0%'; });
+
+        // start auto-assign currentGuess when initialised
+        const origNext = nextGuess;
+        nextGuess = function(){ currentGuess = origNext(); return currentGuess; };
+    })();
+    </script>
+</body>
+</html>

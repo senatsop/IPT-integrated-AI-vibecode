@@ -1,0 +1,80 @@
+.logo {
+    color: #ffffff;
+    font-size: 1.3em;
+    font-weight: bold;
+    margin-right: 3.5vw;
+    padding-left: 0.5vw;
+    letter-spacing: 2px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    text-shadow: 1px 1px 4px #222;
+    white-space: nowrap;
+    align-self: center;
+}
+body {
+    background-color: #0c1422;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background-color: #121a27;
+    padding: 0.8em 2vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+.navbar a {
+    color: #7b7575;
+    text-decoration: none;
+    margin: 0 2vw;
+    font-size: clamp(1em, 2vw, 1.2em);
+    font-weight: 600;
+    transition: color 0.3s;
+    white-space: nowrap;
+}
+.navbar a:hover {
+    color: #ffcc00;
+}
+
+/* Contact content for overlay */
+.contact-main {
+    padding: 30px 36px;
+    color: #fff;
+    background: transparent;
+    height: 100%;
+    box-sizing: border-box;
+}
+.contact-top { display:flex; gap:28px; align-items:flex-start; margin-bottom:20px; }
+.profile-block { display:flex; flex-direction:column; align-items:center; width:220px; }
+.contact-profile { width:140px; height:140px; border-radius:50%; object-fit:cover; border:3px solid gray; }
+.profile-name { margin-top:12px; font-size:1.1rem; color:#60a5fa; }
+.contact-short { color:#ddd; }
+.contact-short h2 { margin:0 0 8px; }
+.contact-short a { color: #ffcc00; text-decoration: underline; }
+
+/* Alternate link colors inside the Social box */
+.box.social p a[href*="discord"] { color: #5865F2; text-decoration: none; }
+.box.social p a[href*="github"] { color: #ffffff; text-decoration: none; transition: color 0.18s ease, transform 0.18s ease; display:inline-block; }
+.box.social p a[href*="github"]:hover { color: #000000; transform: scale(1.06); }
+
+.contact-grid { display:flex; gap:20px; align-items:flex-start; }
+.box { background: rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04); padding:16px; border-radius:6px; flex:1; min-height:200px; box-sizing:border-box; }
+.box h4 { margin:0 0 10px; }
+.underline { text-decoration: underline; text-underline-offset:6px; }
+.social-links { list-style:none; padding:0; margin:6px 0 0; }
+.social-links li { margin:6px 0; }
+.social-links a { color:#fff; text-decoration:none; display:inline-block; transition: color 0.18s ease, transform 0.18s ease; }
+.social-links a:hover { color: #000; transform: scale(1.08); }
+
+.email-form label { font-size:0.9rem; color:#ddd; }
+.email-form input, .email-form textarea { width:100%; padding:8px; margin:6px 0 10px; border-radius:4px; border:1px solid rgba(255,255,255,0.06); background:#081018; color:#fff; }
+.email-form button { background:#ffcc00; color:#111; padding:8px 12px; border:none; border-radius:4px; cursor:pointer; font-weight:700; }
+
+@media (max-width:900px) {
+    .contact-top { flex-direction:column; align-items:center; }
+    .contact-grid { flex-direction:column; }
+    .profile-block { width:100%; }
+}

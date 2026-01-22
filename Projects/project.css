@@ -1,0 +1,105 @@
+.logo {
+    color: #ffffff;
+    font-size: 1.3em;
+    font-weight: bold;
+    margin-right: 3.5vw;
+    padding-left: 0.5vw;
+    letter-spacing: 2px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    text-shadow: 1px 1px 4px #222;
+    white-space: nowrap;
+    align-self: center;
+}
+body {
+    background-color: #0c1422;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background-color: #121a27;
+    padding: 0.8em 2vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+.navbar a {
+    color: #7b7575;
+    text-decoration: none;
+    margin: 0 2vw;
+    font-size: clamp(1em, 2vw, 1.2em);
+    font-weight: 600;
+    transition: color 0.3s;
+    white-space: nowrap;
+}
+.navbar a:hover {
+    color: #ffcc00;
+}
+
+/* Overlay/modal for Contact (same as VibeCode) */
+.overlay {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.65);
+    z-index: 1200;
+}
+.overlay.show { display: flex; }
+.overlay-content {
+    width: 92%;
+    max-width: 1000px;
+    height: 86%;
+    background: #071017;
+    border-radius: 8px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(255,255,255,0.04);
+}
+.overlay-content iframe { width: 100%; height: 100%; display: block; border: 0; background: #000; overflow:hidden; }
+.overlay-content, .overlay-content iframe, .overlay { -webkit-overflow-scrolling: touch; }
+.overlay-content iframe::-webkit-scrollbar { display: none; }
+.overlay-close {
+    position: absolute;
+    right: 10px;
+    top: 8px;
+    background: transparent;
+    color: #fff;
+    border: 0;
+    font-size: 26px;
+    line-height: 1;
+    padding: 4px 8px;
+    cursor: pointer;
+}
+
+/* Projects grid and boxes */
+.projects-main { padding: 40px 36px; }
+.projects-wrap { position: relative; padding: 3rem 0 5rem 0; }
+.projects-grid { display: flex; gap: 40px; justify-content: center; align-items: stretch; padding-left: 260px; }
+.like-bg { position: absolute; left: 18px; top: 18px; width: 220px; height: 360px; background: rgba(255,255,255,0.015); border: 1px solid rgba(255,255,255,0.03); border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.45) inset; z-index: 0; display: flex; align-items: center; justify-content: center; }
+.like-inner { text-align: center; color: rgba(255,255,255,0.95); font-weight: 600; }
+.like-emoji { font-size: 48px; margin-bottom: 0.5rem; }
+.like-text { font-size: 18px; opacity: 0.95; }
+.like-count { margin-top: 0.35rem; font-size: 14px; color: rgba(255,255,255,0.6); }
+.project-box { background: rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04); padding:28px; border-radius:8px; width:320px; min-height:360px; box-sizing:border-box; cursor:pointer; transition: transform 0.18s ease, box-shadow 0.18s ease; position: relative; z-index: 1; }
+.project-box:hover { transform: translateY(-6px); box-shadow: 0 14px 40px rgba(0,0,0,0.5); }
+.project-box h3 { margin-top:0; color:#fff; }
+.project-box p { color:#cfcfcf; }
+
+@media (max-width:900px) {
+    .projects-grid { flex-direction:column; align-items:center; padding-left: 0; }
+    .project-box { width:92%; }
+    .like-bg { left: 50%; transform: translateX(-50%); top: -40px; width: 320px; height: 120px; display:flex; align-items:center; justify-content:center; }
+}
+
+.previous-projects { margin: 3rem auto 0 auto; max-width: 1100px; background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.03); padding: 1.5rem 1.25rem; border-radius: 10px; color: rgba(255,255,255,0.9); }
+.previous-projects h3 { margin: 0 0 0.5rem 0; }
+.previous-projects ul { list-style: none; padding: 0; margin: 0 0 0.5rem 0; display:flex; gap:1rem; }
+.previous-projects a { color: #a8d0ff; text-decoration: underline; }
+.previous-projects .coming-note { margin-top: 0.5rem; font-weight:600; color: #f3f4f6; }
+.previous-projects .created-note { margin-top: 0.4rem; font-size: 13px; color: rgba(255,255,255,0.6); }

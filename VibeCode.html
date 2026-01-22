@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VibeCode Forced BY SIr Cinco</title>
+    <link rel="stylesheet" href="VibeCode.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <span class="logo">SENATSOP</span>
+            <a href="VibeCode.html">Home</a>
+            <a href="Projects/project.html">Projects</a>
+            <a href="Contact/contacts.html">Contacts</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="profile-section">
+            <img src="profile.jpg" class="profile-pic" alt="Profile photo">
+            <h1 class="full-name">Allen Postanes Aguiman</h1>
+            <p class="subtitle">A professional procrastinator, trying to make progress one nap at a time.
+
+</p>
+
+            <div class="info-grid">
+                <div class="info-box education">
+                    <h3>Education</h3>
+                    <p>Elementary</p>
+                        <a href="https://www.google.com/maps?sca_esv=97b248963fd07e50&output=search&q=duero+central+elementary+school&source=lnms&fbs=AIIjpHxU7SXXniUZfeShr2fp4giZ1Y6MJ25_tmWITc7uy4KIeuyr9ljWioGWIw0oasFed3pekTy9ejcwggIWHfXrlrOSGrh2X_EMuX3vWLEhC3Rsgup_V2icg-W_zKg3K2l_FIOPRuWncJVTX82i3FksYeHtJwVhQGDI1qTkL9ekQgBbsHwKOCOjzsbCQK-AvH-8GJuCIXQuE09-7aqN-1Bw_SA2XDJUNA&entry=mc&ved=1t:200715&ictx=111" target="_blank">Duero Central Elementary School</a>
+                    <p>Junior Hight Schoool</p>  
+                        <a href="https://www.google.com/maps?sca_esv=97b248963fd07e50&output=search&q=cvif&source=lnms&fbs=AIIjpHxU7SXXniUZfeShr2fp4giZ1Y6MJ25_tmWITc7uy4KIeuYzzFkfneXafNx6OMdA4MRT57TpI4o2tavIRfF1e7-xTLfbOlRZsi_SKi4JeEBY7pnUnsYZ2YolLXlDdpWd5X8Dl3ww1kgiAU4MTvhlsxynlXYG66bQ0LfJUkXjx90u6LziqyMljOah4l7FbuzQ5ppUaZOESIdhGWk6sqjHiMsayGn74Q&entry=mc&ved=1t:200715&ictx=111" target="_blank">Central Visayan Institute Foundation</a>
+                    <p>Senior High School</p>
+                        <a href="https://www.google.com/maps?sca_esv=97b248963fd07e50&output=search&q=cvif&source=lnms&fbs=AIIjpHxU7SXXniUZfeShr2fp4giZ1Y6MJ25_tmWITc7uy4KIeuYzzFkfneXafNx6OMdA4MRT57TpI4o2tavIRfF1e7-xTLfbOlRZsi_SKi4JeEBY7pnUnsYZ2YolLXlDdpWd5X8Dl3ww1kgiAU4MTvhlsxynlXYG66bQ0LfJUkXjx90u6LziqyMljOah4l7FbuzQ5ppUaZOESIdhGWk6sqjHiMsayGn74Q&entry=mc&ved=1t:200715&ictx=111" target="_blank">Central Visayan Institute Foundation</a>
+                    <p>College</p>
+                        <a href="https://www.google.com/maps/place/Holy+Name+University/@9.6502514,123.8656277,17z/data=!3m1!4b1!4m6!3m5!1s0x33aa4c346a515c51:0xb74ab2ca59a780d5!8m2!3d9.6502514!4d123.8682026!16s%2Fm%2F026hg96?entry=ttu&g_ep=EgoyMDI1MTExMC4wIKXMDSoASAFQAw%3D%3D" target="_blank">Holy Name University </a>
+                    </div>
+                <div class="info-box">
+                    <h3>About Me</h3>
+                    <p>I'm Allen P. Aguiman, a 19-year-old IT student passionate in Aviation Industry and IT professional. I focus on developing creative and practical solutions through programming and web development, while continuously improving my skills to prepare for a career in both tech industry and aviation industry.</p>
+                </div>
+                <div class="info-box skills">
+                    <h3>Skills</h3>
+                    <div class="skill">
+                        <div class="skill-label">JavaScript <span class="skill-percent">10%</span></div>
+                        <div class="skill-bar"><div class="skill-fill" style="--w:10%"></div></div>
+                    </div>
+                    <div class="skill">
+                        <div class="skill-label">HTML <span class="skill-percent">70%</span></div>
+                        <div class="skill-bar"><div class="skill-fill" style="--w:70%"></div></div>
+                    </div>
+                    <div class="skill">
+                        <div class="skill-label">CSS <span class="skill-percent">40%</span></div>
+                        <div class="skill-bar"><div class="skill-fill" style="--w:40%"></div></div>
+                    </div>
+                    <div class="skill">
+                        <div class="skill-label">C Language <span class="skill-percent">40%</span></div>
+                        <div class="skill-bar"><div class="skill-fill" style="--w:40%"></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Contact overlay (loads Contact/contacts.html inside an iframe) -->
+    <div id="contact-overlay" class="overlay" aria-hidden="true">
+        <div class="overlay-content" role="dialog" aria-modal="true" aria-label="Contact">
+            <button class="overlay-close" aria-label="Close contact">×</button>
+            <iframe src="Contact/contacts.html" title="Contact" frameborder="0" scrolling="no" style="overflow:hidden;"></iframe>
+        </div>
+    </div>
+    <script>
+    (function(){
+        // open contact overlay when navbar Contact link is clicked
+        const navLinks = document.querySelectorAll('.navbar a');
+        let contactLink = null;
+        navLinks.forEach(a => { if (a.getAttribute('href') && a.getAttribute('href').includes('Contact/contacts.html')) contactLink = a; });
+        const overlay = document.getElementById('contact-overlay');
+        const closeBtn = overlay && overlay.querySelector('.overlay-close');
+        function openOverlay(e){ if(e) e.preventDefault(); overlay.classList.add('show'); overlay.setAttribute('aria-hidden','false'); }
+        function closeOverlay(){ overlay.classList.remove('show'); overlay.setAttribute('aria-hidden','true'); }
+        if(contactLink){ contactLink.addEventListener('click', openOverlay); contactLink.setAttribute('href','#'); }
+        if(closeBtn) closeBtn.addEventListener('click', closeOverlay);
+        // close when clicking outside content
+        overlay.addEventListener('click', function(e){ if(e.target === overlay) closeOverlay(); });
+        // Esc to close
+        document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && overlay.classList.contains('show')) closeOverlay(); });
+    })();
+    </script>
+</body>
+</html>

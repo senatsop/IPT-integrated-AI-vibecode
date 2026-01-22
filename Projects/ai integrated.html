@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>AI Integrated - Project</title>
+    <link rel="stylesheet" href="../VibeCode.css">
+    <style>
+        /* Ensure the iframe content matches the VibeCode background and overlay look */
+        body { background: #0c1422; color: #ddd; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 28px; }
+        .project-detail { max-width: 1000px; margin: 0 auto; }
+        .project-header { display:flex; gap:20px; align-items:center; }
+        .project-header h1 { color: #ffcc00; margin:0; }
+        .project-summary { margin-top:18px; background: rgba(255,255,255,0.02); padding:18px; border-radius:8px; border:1px solid rgba(255,255,255,0.04); }
+        .project-grid { display:flex; gap:16px; margin-top:18px; }
+        .project-grid .card { flex:1; padding:14px; background: rgba(255,255,255,0.02); border-radius:6px; border:1px solid rgba(255,255,255,0.03); }
+        .muted { color:#aab4c1; }
+    </style>
+</head>
+<body>
+    <div class="project-detail">
+        <div class="project-header">
+            <h1>Adaptive Rock‑Paper‑Scissors</h1>
+        </div>
+
+        <div class="project-summary">
+            <p class="muted">Welcome to the interactive AI mini-game: "Adaptive Rock‑Paper‑Scissors". Play against a small AI that learns from your previous moves and adjusts its choices to try to beat your tendencies.</p>
+
+            <div id="rps-game" style="margin-top:18px;">
+                <div style="display:flex;gap:20px;align-items:center;">
+                    <div>
+                        <strong style="color:#fff; font-size:1.05rem;">Your score: <span id="score-player">0</span></strong>
+                    </div>
+                    <div>
+                        <strong style="color:#fff; font-size:1.05rem;">AI score: <span id="score-ai">0</span></strong>
+                    </div>
+                    <div style="color:#aab4c1; margin-left:14px">Rounds played: <span id="rounds">0</span></div>
+                </div>
+
+                <div style="margin-top:16px; display:flex; gap:12px;">
+                    <button class="rps-btn" data-move="rock">Rock</button>
+                    <button class="rps-btn" data-move="paper">Paper</button>
+                    <button class="rps-btn" data-move="scissors">Scissors</button>
+                </div>
+
+                <div id="rps-result" style="margin-top:14px; color:#fff;"></div>
+
+                <div style="margin-top:16px; background: rgba(255,255,255,0.02); padding:12px; border-radius:6px; border:1px solid rgba(255,255,255,0.03);">
+                    <h4 style="margin:0 0 8px; color:#fff">How the AI works</h4>
+                    <p class="muted" style="margin:0">The AI keeps track of the player's move frequencies and biases its next choice to beat the player's most frequent move. A small randomness factor prevents it from being fully predictable.</p>
+                </div>
+
+                <div style="margin-top:14px;">
+                    <button id="reset-game" style="background:#ffcc00;padding:8px 12px;border-radius:6px;border:0;cursor:pointer;font-weight:700;color:#111">Reset Game</button>
+                </div>
+            </div>
+
+            <script>
+            (function(){
+                const moves = ['rock','paper','scissors'];
+                const winMap = { rock: 'scissors', paper: 'rock', scissors: 'paper' };
+                let counts = { rock:0, paper:0, scissors:0 };
+                let scorePlayer = 0, scoreAI = 0, rounds = 0;
+
+                const elScoreP = document.getElementById('score-player');
+                const elScoreAI = document.getElementById('score-ai');
+                const elRounds = document.getElementById('rounds');
+                const elResult = document.getElementById('rps-result');
+                const buttons = document.querySelectorAll('.rps-btn');
+                const resetBtn = document.getElementById('reset-game');
+
+                function aiChoose(){
+                    // Find player's most frequent move
+                    const most = Object.keys(counts).reduce((a,b)=> counts[a]>=counts[b]?a:b);
+                    // AI tries to choose the move that beats 'most'
+                    const choiceToBeatMost = { rock: 'paper', paper: 'scissors', scissors: 'rock' }[most];
+                    // randomness: sometimes pick randomly (30%)
+                    if(Math.random() < 0.30) return moves[Math.floor(Math.random()*3)];
+                    return choiceToBeatMost;
+                }
+
+                function decide(player, ai){
+                    if(player === ai) return 'tie';
+                    if(winMap[player] === ai) return 'player';
+                    return 'ai';
+                }
+
+                function playRound(playerMove){
+                    counts[playerMove]++;
+                    const aiMove = aiChoose();
+                    const winner = decide(playerMove, aiMove);
+                    rounds++;
+                    elRounds.textContent = rounds;
+                    if(winner === 'player'){ scorePlayer++; elScoreP.textContent = scorePlayer; elResult.innerHTML = `<strong style="color:#60a5fa">You</strong> played ${playerMove}. AI played ${aiMove}. You win!`; }
+                    else if(winner === 'ai'){ scoreAI++; elScoreAI.textContent = scoreAI; elResult.innerHTML = `<strong style="color:#ff6b6b">AI</strong> played ${aiMove}. You played ${playerMove}. AI wins.`; }
+                    else { elResult.textContent = `Both played ${playerMove}. It's a tie.`; }
+                }
+
+                buttons.forEach(btn => btn.addEventListener('click', ()=> playRound(btn.dataset.move)));
+                resetBtn.addEventListener('click', ()=>{
+                    counts = { rock:0, paper:0, scissors:0 };
+                    scorePlayer = 0; scoreAI = 0; rounds = 0;
+                    elScoreP.textContent = '0'; elScoreAI.textContent = '0'; elRounds.textContent = '0'; elResult.textContent = '';
+                });
+            })();
+            </script>
+
+        </div>
+    </div>
+</body>
+</html>

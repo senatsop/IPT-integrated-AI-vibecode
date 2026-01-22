@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VibeCode Forced BY SIr Cinco</title>
+    <link rel="stylesheet" href="project.css">
+</head>
+<body>
+        <header>
+            <nav class="navbar">
+                <span class="logo">SENATSOP</span>
+                <a href="../VibeCode.html">Home</a>
+                <a href="project.html">Projects</a>
+                <a href="../Contact/contacts.html">Contacts</a>
+            </nav>
+        </header>
+        <main class="projects-main">
+            <div class="projects-wrap">
+                <div class="like-bg" aria-hidden="true">
+                    <div class="like-inner">
+                        <div class="like-emoji">👍</div>
+                        <div class="like-text">Like this AI series</div>
+                        <div class="like-count">1.2k</div>
+                    </div>
+                </div>
+
+                <section class="projects-grid">
+                    <div class="project-box" data-src="ai integrated.html">
+                        <h3>AI Integrated</h3>
+                        <p>Click to view project details.</p>
+                    </div>
+                    <div class="project-box" data-src="ai integrated2.html">
+                        <h3>AI Guess Trainer</h3>
+                        <p>Click to open the AI guessing trainer.</p>
+                    </div>
+                    <div class="project-box" data-src="ai integrated3.html">
+                        <h3>AI Integrated 3</h3>
+                        <p>Coming soon — click to preview.</p>
+                    </div>
+                </section>
+
+                <section class="previous-projects">
+                    <h3>Previous Projects</h3>
+                    <p class="muted">A collection of earlier work — links below.</p>
+                    <ul>
+                        <li><a href="../Projects/old-project1.html" target="_blank">Old Project 1</a></li>
+                        <li><a href="../Projects/old-project2.html" target="_blank">Old Project 2</a></li>
+                        <li><a href="../Projects/old-project3.html" target="_blank">Old Project 3</a></li>
+                    </ul>
+                    <div class="coming-note">Coming soon</div>
+                    <div class="created-note">This was created 1-2 hours</div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Contact / Project overlay (loads pages inside an iframe) -->
+    <div id="contact-overlay" class="overlay" aria-hidden="true">
+        <div class="overlay-content" role="dialog" aria-modal="true" aria-label="Contact">
+            <button class="overlay-close" aria-label="Close contact">×</button>
+                <iframe src="" title="Content" frameborder="0" scrolling="no" style="overflow:hidden;"></iframe>
+        </div>
+    </div>
+    <script>
+        (function(){
+            const navLinks = document.querySelectorAll('.navbar a');
+            const overlay = document.getElementById('contact-overlay');
+            const iframe = overlay.querySelector('iframe');
+            const closeBtn = overlay.querySelector('.overlay-close');
+
+            function openOverlayWith(src){ if(!src) return; iframe.src = src; overlay.classList.add('show'); overlay.setAttribute('aria-hidden','false'); }
+            function closeOverlay(){ overlay.classList.remove('show'); overlay.setAttribute('aria-hidden','true'); iframe.src = ''; }
+
+            // Hijack Contact navbar link
+            navLinks.forEach(a => {
+                const href = a.getAttribute('href') || '';
+                if(href.includes('Contact/contacts.html')){
+                    a.addEventListener('click', function(e){ e.preventDefault(); openOverlayWith('../Contact/contacts.html'); });
+                    a.setAttribute('href','#');
+                }
+            });
+
+            // Project boxes open overlay with their data-src
+            document.querySelectorAll('.project-box').forEach(box => {
+                box.addEventListener('click', function(){
+                    const src = box.dataset.src;
+                    openOverlayWith(src);
+                });
+            });
+
+            closeBtn.addEventListener('click', closeOverlay);
+            overlay.addEventListener('click', function(e){ if(e.target === overlay) closeOverlay(); });
+            document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && overlay.classList.contains('show')) closeOverlay(); });
+        })();
+    </script>
+
+</body>
+</html>
